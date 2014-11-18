@@ -1,0 +1,51 @@
+drop table IF EXISTS product;
+drop table IF EXISTS user;
+drop table IF EXISTS sales;
+drop table IF EXISTS company;
+drop table IF EXISTS message;
+
+
+create table user (
+	userID			varchar(60) not null unique,
+	password		varchar(64) not null,
+	email			varchar(100) not null unique,
+	registered		TIMESTAMP not null default CURRENT_TIMESTAMP(),
+	status			varchar(10)	not null,
+	address1    	VARCHAR(120),
+	address2 		VARCHAR(120),
+	address3 		VARCHAR(120),
+	city			VARCHAR(100),
+	state 			Varchar(50),
+	country 		Varchar(50) default 'Australia',
+	postcode 		SMALLINT UNSIGNED,
+
+	primary key (username)
+) ENGINE=INNODB;
+
+INSERT INTO Users (username, password, email, fname, lname, status) 
+VALUES ('admin', 'password', 'admin@gmail.com', 'root', 'Admin', 'admin');
+
+create table product (	
+	productID		serial,
+	price			int,
+	provider		varchar(60) not null,
+	description		text not null,
+	category		TINYINT UNSIGNED,
+	addedTime		TIMESTAMP not null default CURRENT_TIMESTAMP(),
+	endTime			TIMESTAMP,
+	image 			varchar(200),
+	foreign key (productID) references Users(username) ON DELETE CASCADE ON UPDATE CASCADE,
+	primary key (id)
+) ENGINE=INNODB;
+
+create table sales (	
+	salesID			serial,
+	userID			varchar(60) not null,
+	productID		serial,
+	quantity 		int,
+	date_purchase	TIMESTAMP not null,
+	paid_date		TIMESTAMP not null
+	foreign key (userID) references user(userID) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (productID) references product(productID) ON DELETE CASCADE ON UPDATE CASCADE,
+	primary key (salesID)
+) ENGINE=INNODB;
