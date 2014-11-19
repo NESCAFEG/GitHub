@@ -22,13 +22,13 @@ create table user (
 	primary key (username)
 ) ENGINE=INNODB;
 
-INSERT INTO Users (username, password, email, fname, lname, status) 
-VALUES ('admin', 'password', 'admin@gmail.com', 'root', 'Admin', 'admin');
+INSERT INTO Users (username, password, email, status) 
+VALUES ('admin', 'password', 'admin@gmail.com', 'admin');
 
 create table product (	
 	productID		serial,
 	price			int,
-	companyID		serial,
+	provider		varchar(60) not null,
 	description		text not null,
 	category		TINYINT UNSIGNED,
 	addedTime		TIMESTAMP not null default CURRENT_TIMESTAMP(),
@@ -49,22 +49,3 @@ create table sales (
 	foreign key (productID) references product(productID) ON DELETE CASCADE ON UPDATE CASCADE,
 	primary key (salesID)
 ) ENGINE=INNODB;
-
-create table company (	
-	companyID		serial,
-	name			varchar(60) not null,
-	country			varchar(20)
-	foreign key (companyID) references product(companyID) ON DELETE CASCADE ON UPDATE CASCADE,
-	primary key (companyID)
-) ENGINE=INNODB;
-
-create table message (	
-	messageID		serial,
-	userID			varchar(60) not null unique,
-	sentAT			TIMESTAMP not null default CURRENT_TIMESTAMP(),
-	message 		varchar(200),
-	foreign key (userID) references user(userID) ON DELETE CASCADE ON UPDATE CASCADE,
-	primary key (messageID)
-) ENGINE=INNODB;
-
-
