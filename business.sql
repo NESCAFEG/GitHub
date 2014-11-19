@@ -22,7 +22,7 @@ create table user (
 	primary key (username)
 ) ENGINE=INNODB;
 
-INSERT INTO Users (username, password, email, fname, lname, status) 
+INSERT INTO user (username, password, email, fname, lname, status) 
 VALUES ('admin', 'password', 'admin@gmail.com', 'root', 'Admin', 'admin');
 
 create table product (	
